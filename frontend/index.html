@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>تقييم طوارئ ذكي</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="headerText">
+        <h1>تقييم طوارئ ذكي</h1>
+        <p class="sub">
+          تقييم أولي للحالة (🟢 🟡 🔴) + تعليمات عامة.
+          <span class="warn">ليس تشخيصًا طبيًا.</span>
+        </p>
+      </div>
+
+      <!-- Theme Toggle (Uiverse) -->
+      <label class="switch" title="تبديل الوضع">
+        <span class="sun">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <g fill="#ffd43b">
+              <circle r="5" cy="12" cx="12"></circle>
+              <path d="m21 13h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm-17 0h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm13.66-5.66a1 1 0 0 1 -.66-.29 1 1 0 0 1 0-1.41l.71-.71a1 1 0 1 1 1.41 1.41l-.71.71a1 1 0 0 1 -.75.29zm-12.02 12.02a1 1 0 0 1 -.71-.29 1 1 0 0 1 0-1.41l.71-.66a1 1 0 0 1 1.41 1.41l-.71.71a1 1 0 0 1 -.7.24zm6.36-14.36a1 1 0 0 1 -1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1 -1 1zm0 17a1 1 0 0 1 -1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1 -1 1zm-5.66-14.66a1 1 0 0 1 -.7-.29l-.71-.71a1 1 0 0 1 1.41-1.41l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1 -.71.29zm12.02 12.02a1 1 0 0 1 -.7-.29l-.66-.71a1 1 0 0 1 1.36-1.36l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1 -.71.24z"></path>
+            </g>
+          </svg>
+        </span>
+
+        <span class="moon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+            <path d="m223.5 32c-123.5 0-223.5 100.3-223.5 224s100 224 223.5 224c60.6 0 115.5-24.2 155.8-63.4 5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6-96.9 0-175.5-78.8-175.5-176 0-65.8 36-123.1 89.3-153.3 6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"></path>
+          </svg>
+        </span>
+
+        <input id="themeToggle" type="checkbox" class="input">
+        <span class="slider"></span>
+      </label>
+    </header>
+
+    <section class="card">
+      <h2>وصف الحالة</h2>
+
+      <div class="aiBox">
+        <label for="freeText">اكتب وصف بسيط للحالة</label>
+        <textarea id="freeText" rows="3" placeholder="مثال: عمره 22 طاح ويتنفس طبيعي بس فيه دوخة وألم متوسط"></textarea>
+
+        <div class="aiActions">
+          <button id="aiBtn" type="button" class="third">
+            <span class="btnText">حلّل النص وعبّي الأسئلة</span>
+            <span class="spinner" aria-hidden="true"></span>
+          </button>
+          <span id="aiStatus" class="small"></span>
+        </div>
+
+        <p class="hint">ملاحظة: هذا تحليل نصي لاستخراج القيم فقط.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>أسئلة سريعة</h2>
+
+      <form id="triageForm">
+        <div class="grid">
+          <div class="field">
+            <label for="age">العمر</label>
+            <input id="age" name="age" type="number" min="0" max="120" placeholder="مثال: 22" required />
+          </div>
+
+          <div class="field">
+            <label for="breathing">هل يتنفس؟</label>
+            <select id="breathing" name="breathing" required>
+              <option value="yes">نعم</option>
+              <option value="abnormal">غير طبيعي / صعوبة</option>
+              <option value="no">لا</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="conscious">هل هو واعي؟</label>
+            <select id="conscious" name="conscious" required>
+              <option value="yes">نعم</option>
+              <option value="no">لا</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="bleeding">هل يوجد نزيف؟</label>
+            <select id="bleeding" name="bleeding" required>
+              <option value="none">لا</option>
+              <option value="mild">بسيط</option>
+              <option value="severe">شديد</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="chest_pain">ألم صدر شديد؟</label>
+            <select id="chest_pain" name="chest_pain" required>
+              <option value="no">لا</option>
+              <option value="yes">نعم</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="pain_level">مستوى الألم</label>
+            <select id="pain_level" name="pain_level">
+              <option value="none">لا يوجد</option>
+              <option value="mild">خفيف</option>
+              <option value="moderate">متوسط</option>
+              <option value="severe">شديد</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="vomiting">قيء؟</label>
+            <select id="vomiting" name="vomiting">
+              <option value="no">لا</option>
+              <option value="yes">نعم</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="dizziness">دوخة؟</label>
+            <select id="dizziness" name="dizziness">
+              <option value="no">لا</option>
+              <option value="yes">نعم</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="submitBtn" type="submit">قيّم الحالة</button>
+          <button id="resetBtn" type="button" class="secondary">مسح</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="resultCard" class="card hidden">
+      <div class="resultTop">
+        <div class="resultHeader">
+          <h2>النتيجة</h2>
+          <span id="badge" class="badge">—</span>
+        </div>
+
+        <p id="statusHint" class="statusHint">—</p>
+
+        <div class="primaryRow">
+          <div class="primaryStepBox">
+            <div class="primaryStepLabel">أهم خطوة الآن</div>
+            <div id="primaryStep" class="primaryStepText">—</div>
+          </div>
+
+          <button id="primaryActionBtn" type="button" class="primaryActionBtn">
+            ابدأ الآن
+          </button>
+        </div>
+
+        <div id="callBox" class="callBox hidden">
+          <p><strong>طوارئ:</strong> اتصل الآن</p>
+          <div class="callActions">
+            <a id="callBtn" class="callBtn" href="tel:911">اتصل على 911</a>
+          </div>
+        </div>
+      </div>
+
+      <h3>الخطوات</h3>
+      <ol id="stepsList" class="steps"></ol>
+
+      <h3>ملخص الحالة</h3>
+      <pre id="summaryBox" class="summary"></pre>
+
+      <p id="disclaimer" class="disclaimer"></p>
+    </section>
+
+    <footer class="footer">
+      <small>هذا التطبيق للتقييم الأولي فقط للطوارئ اتصل على 911.</small>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
